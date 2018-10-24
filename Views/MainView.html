@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../Controllers/MainViewController.js"></script>
+    <script src="../Models/DataModel.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body background="catCity.jpg" style="background-position:center top; background-repeat: repeat-y;">
+<div class="container">
+    <h1>Registration</h1>
+    <hr>
+    <form>
+        <h2>Owner</h2>
+        <div class="col-med-4">
+            <label for="firstName"><b>First Name</b></label>
+            <input id="firstName" type="text" placeholder="Enter first name" name="firstName" required>
+            <br>
+            <br>
+            <label for="lastName"><b>Last Name</b></label>
+            <input id="lastName" type="text" placeholder="Enter last name" name="lastName" required>
+            <br>
+            <br>
+            <label for="address"><b>Address</b></label>
+            <input id="address" type="text" placeholder="Enter address" name="address" required>
+        </div>
+        <hr>
+        <h2>Cat</h2>
+        <div class="col-med-4">
+            <label for="name"><b>Cat's Name</b></label>
+            <input id="name" type="text" placeholder="Enter cat's name" name="name" required>
+            <br>
+            <br>
+            <label for="breed"><b>Cat's Breed</b></label>
+            <input id="breed" type="text" placeholder="Enter cat's breed" name="name" required>
+            <br>
+            <br>
+            <label for="age"><b>Cat's Age</b></label>
+            <input id="age" type="text" placeholder="Enter cat's age" name="name" required
+                   onkeypress="validateAge(event)">
+            <br>
+            <br>
+            <label for="color"><b>Cat's Color</b></label>
+            <input id="color" type="text" placeholder="Enter cat's color" name="name" required>
+            <br>
+            <br>
+        </div>
+    </form>
+    <input type="submit" class="registrationButton" onclick="registerCat()" value="Register">
+    <span id="display"></span>
+
+
+</div>
+<div>
+    <div class="container">
+        <div id="table" class="table-editable">
+            <table class="tableCat" id="table-1">
+                <tbody class="table-body" id="tableBody">
+                <tr class="catRow">
+                    <th>Cat Name</th>
+                    <th>Cat Breed</th>
+                    <th>Cat Age</th>
+                    <th>Cat Color</th>
+                    <th>Cat Owner First Name</th>
+                    <th>Cat Owner Last Name</th>
+                    <th>Cat Owner Address</th>
+                </tr>
+                <!-- This is our clonable table line -->
+                <!-- <tr class="hide" id="row-clone" contenteditable="true">
+                     <td contenteditable="true"></td>
+                     <td contenteditable="true"></td>
+                     <td contenteditable="true"></td>
+                     <td contenteditable="true"></td>
+                     <td contenteditable="true"></td>
+                     <td contenteditable="true"></td>
+                     <td contenteditable="true"></td>
+                 </tr>-->
+                </tbody>
+            </table>
+        </div>
+
+        <label>
+            <input type="submit" id="saveButton" onclick="updateArray()" value="Save">
+        </label>
+    </div>
+</div>
+</body>
+
+</html>
