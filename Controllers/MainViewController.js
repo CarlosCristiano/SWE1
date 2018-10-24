@@ -20,32 +20,6 @@ function registerCat() {
     addRow(result)
 }
 
-/*
-function tableCreate(e) {
-
-    var body = document.getElementsByTagName('body')[0];
-    var tbl = document.getElementById('myTable');
-    for (var i = 0; i < 1; i++) {
-        var tr = document.createElement('tr');
-        for (var j = 0; j < 5; j++) {
-            if (i === 2 && j === 1) {
-                break
-            } else {
-                var td = document.createElement('td');
-                td.isContentEditable = true;
-                td.appendChild(document.createTextNode(e[Object.keys(e)[j]]));
-                i === 1 && j === 1 ? td.setAttribute('rowSpan', '2') : null;
-                tr.appendChild(td);
-                tr.isContentEditable = true;
-            }
-        }
-        tbdy.appendChild(tr);
-    }
-    tbl.appendChild(tbdy);
-    body.appendChild(tbl)
-}
-*/
-
 function addRow(e) {
     const TABLE = document.getElementById("table-1");
     let clone = document.createElement("tr");
@@ -57,13 +31,13 @@ function addRow(e) {
 
             for (let j = 0; j < 3; j++) {
                 let newInfo = info[Object.keys(info)[j]];
-                let doc1 = (document.createTextNode(newInfo));
-                clone.insertCell(i).appendChild(doc1);
+                let ownerDocument = (document.createTextNode(newInfo));
+                clone.insertCell(i).appendChild(ownerDocument);
                 i++;
             }
         } else {
-            let doc = (document.createTextNode(info));
-            clone.insertCell(i).appendChild(doc);
+            let catDocument = (document.createTextNode(info));
+            clone.insertCell(i).appendChild(catDocument);
         }
     }
     const length = TABLE.rows.length;
@@ -93,18 +67,18 @@ function updateArray() {
 }
 
 function validateAge(e) {
-    let theE = e || window.event;
-    if (theE.type === "paste") {
+    let theEvent = e || window.event;
+    if (theEvent.type === "paste") {
         key = event.clipboardData.getData('text/plain');
 
     } else {
-        var key = theE.keyCode || theE.which;
+        let key = theEvent.keyCode || theEvent.which;
         key = String.fromCharCode(key);
     }
     let regex = /[0-9]|\./;
     if (!regex.test(key)) {
-        theE.returnValue = false;
-        if (theE.preventDefault) {
+        theEvent.returnValue = false;
+        if (theEvent.preventDefault) {
             alert("Only numbers allowed!")
         }
     }
