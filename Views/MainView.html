@@ -3,9 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <script src="../Controllers/MainViewController.js"></script>
-    <script src="../Models/DataModel.js"></script>
+    <script src="../Controllers/Controller.js"></script>
+    <script src="../Models/Model.js"></script>
+    <script src="../Views/View.js"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
     <link rel="stylesheet" href="styles.css">
 </head>
 
@@ -35,21 +37,20 @@
             <br>
             <br>
             <label for="breed"><b>Cat's Breed</b></label>
-            <input id="breed" type="text" placeholder="Enter cat's breed" name="name" required>
+            <input id="breed" type="text" placeholder="Enter cat's breed" name="breed" required>
             <br>
             <br>
             <label for="age"><b>Cat's Age</b></label>
-            <input id="age" type="text" placeholder="Enter cat's age" name="name" required
-                   onkeypress="validateAge(event)">
+            <input id="age" type="text" placeholder="Enter cat's age" name="age" required>
             <br>
             <br>
             <label for="color"><b>Cat's Color</b></label>
-            <input id="color" type="text" placeholder="Enter cat's color" name="name" required>
+            <input id="color" type="text" placeholder="Enter cat's color" name="color" required>
             <br>
             <br>
         </div>
     </form>
-    <input type="submit" class="registrationButton" onclick="registerCat()" value="Register">
+    <input type="submit" id="registrationButton" name="registrationButton" value="Register">
     <span id="display"></span>
 
 
@@ -73,10 +74,16 @@
         </div>
 
         <label>
-            <input type="submit" id="saveButton" onclick="updateArray()" value="Save">
+            <input type="submit" id="saveButton" name="saving" value="Save">
         </label>
     </div>
 </div>
 </body>
+<script>
+    let theModel = model();
+    let theView = view();
+    let theController = controller(theView, theModel);
+    theView.control(theController);
+</script>
 
 </html>
