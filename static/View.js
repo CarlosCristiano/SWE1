@@ -19,8 +19,7 @@ function view() {
 
     function addRow(cat) {
         let clone = document.createElement("tr");
-
-        for (let i = 0; i < 6; i++) {
+        for (let i = 0; i < 7; i++) {
             let info = cat[Object.keys(cat)[i]];
 
             if (info instanceof Object) {
@@ -40,6 +39,8 @@ function view() {
         clone.id = "newID" + length - 1;
         clone.contentEditable = "true";
         clone.isContentEditable = true;
+        clone.cells[0].contentEditable = "false";
+        clone.cells[0].isContentEditable = false;
         TABLE.appendChild(clone);
     }
 
@@ -49,5 +50,16 @@ function view() {
         data.age.onkeypress = controller.validateAge.bind(controller, data.age.value)
     }
 
-    return {addRow, TABLE, control, data}
+    function fillTable(list) {
+        for (let i = 0; i < list.constructor.length; i++) {
+            addRow(list[i])
+        }
+    }
+
+    return {fillTable, addRow, TABLE, control, data}
 }
+
+function update(parent) {
+    return view => ReactDOM.render(view, parent)
+}
+

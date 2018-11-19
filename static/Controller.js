@@ -1,23 +1,33 @@
-function controller(view, model) {
+function controller(view, model, fetchJson) {
     let savedObject = [];
+    const headers = {'Content-Type': 'application/json', Accept: 'application/json'};
 
-    function registerCat() {
+    async function registerCat() {
         let owner = new model.Owner(view.data.firstName.value, view.data.lastName.value, view.data.address.value);
 
-        let cat = new model.Cat(view.data.name.value, view.data.breed.value,
+        let cat = new model.Cat(0, view.data.name.value, view.data.breed.value,
             view.data.age.value, view.data.color.value, owner);
-
-        savedObject.push(cat);
 
         if (cat.catName.length === 0) {
             alert("Please fill in all the fields");
             return false;
         }
 
-        view.addRow(cat)
+        if (cat) {
+            const serverCat = await fetchJson('/cats', {method: 'POST', body: JSON.stringify(cat)});
+            let type = typeof serverCat;
+            alert(type);
+            if (type === "string") {
+                alert(serverCat);
+            } else {
+                savedObject.push(serverCat);
+
+                view.addRow(serverCat);
+            }
+        }
     }
 
-    function updateArray() {
+    async function updateArray() {
         const TABLE = view.TABLE;
         let newCat = new model.Cat();
 
@@ -29,6 +39,11 @@ function controller(view, model) {
                 }
                 savedObject.push(newCat);
             }
+        }
+
+        if (savedObject) {
+            let sth =
+                await fetchJson('cats/update', {method: 'PATCH', body: JSON.stringify(savedObject)});
         }
     }
 
@@ -50,6 +65,7 @@ function controller(view, model) {
             }
 
         }
+
     }
 
     return {updateArray, validateAge, registerCat}

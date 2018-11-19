@@ -3,9 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <script src="../Controllers/Controller.js"></script>
-    <script src="../Models/Model.js"></script>
-    <script src="../Views/View.js"></script>
+    <script crossorigin src="https://unpkg.com/react@15/dist/react.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@15/dist/react-dom.js"></script>
+    <script>var module = {}</script>
+    <script src="Controller.js"></script>
+    <script src="Model.js"></script>
+    <script src="View.js"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 
     <link rel="stylesheet" href="styles.css">
@@ -56,11 +59,12 @@
 
 </div>
 <div>
-    <div class="container">
+    <div id='base' class="container">
         <div id="table" class="table-editable">
             <table class="tableCat" id="table-1">
                 <tbody class="table-body" id="tableBody">
                 <tr class="catRow">
+                    <th>Cat ID</th>
                     <th>Cat Name</th>
                     <th>Cat Breed</th>
                     <th>Cat Age</th>
@@ -80,10 +84,29 @@
 </div>
 </body>
 <script>
-    let theModel = model();
-    let theView = view();
-    let theController = controller(theView, theModel);
-    theView.control(theController);
+    const server = 'http://localhost:9090/';
+    const fetch1 =
+        function fetchJson(relativeUrl, options) {
+            options = options || {};
+            options.headers = options.headers || {'Content-Type': 'application/json', Accept: 'application/json'};
+            const fullUrl = new URL(relativeUrl, server);
+            return fetch(fullUrl.href, options).then(res => res.json())
+        };
+
+
+    async function init() {
+        let list = await fetch1('/cats', {method: 'GET'});
+        let theModel = model();
+        let theView = view();
+        let theController = controller(theView, theModel, fetch1);
+        theView.control(theController);
+        theView.fillTable(list);
+    }
+
+    init()
+</script>
+<script>
+
 </script>
 
 </html>

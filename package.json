@@ -2,6 +2,10 @@
   "name": "SWE1",
   "version": "1.0.0",
   "dependencies": {
-    "jQuery": "latest"
+    "body-parser": "latest",
+    "express": "^4.16.4",
+    "jQuery": "latest",
+    "node-fetch": "^2.2.1",
+    "xmlhttprequest": "^1.8.0"
   }
 }
